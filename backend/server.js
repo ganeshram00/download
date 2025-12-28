@@ -165,7 +165,7 @@ app.get("/get-video-info", async (req, res) => {
   } catch (err) {
     console.error("Error fetching video info:", err);
     res.status(500).json({
-      error: "YouTube blocked request or login required.",
+      error: "YouTube blocked request or login required. " + err,
     });
   }
 });
