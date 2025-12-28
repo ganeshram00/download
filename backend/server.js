@@ -38,8 +38,10 @@ app.use(cors());
 app.use(express.json());
 
 /* ---------------- YTDL AGENT (Cookies/Signatures) ---------------- */
+/* ---------------- YTDL AGENT (Cookies/Signatures) ---------------- */
 let agent = undefined;
 if (fs.existsSync("./cookies.txt")) {
+  console.log("[COOKIES] cookies.txt file found. Creating agent...");
   const cookieText = fs.readFileSync("./cookies.txt", "utf8");
   const cookies = cookieText
     .split("\n")
@@ -54,6 +56,9 @@ if (fs.existsSync("./cookies.txt")) {
       };
     });
   agent = ytdl.createAgent(cookies);
+  console.log(`[COOKIES] Agent created with ${cookies.length} cookies.`); // <--- यह लाइन जोड़ें
+} else {
+    console.warn("[COOKIES] WARNING: cookies.txt file NOT found! Bot detection likely."); // <--- यह लाइन जोड़ें
 }
 
 /* ---------------- PLAYER SCRIPT CLEANUP FUNCTION (NEW) ---------------- */
@@ -218,6 +223,8 @@ app.get("/download-youtube-stream", (req, res) => {
   "mp3",
   "--audio-quality",
   "0",
+  fs.existsSync("./cookies.txt") && "--cookies-from-browser",
+    fs.existsSync("./cookies.txt") && "chrome", // या आपके द्वारा उपयोग किए जा रहे ब्राउज़र का नाम
 
   "--js-runtimes",
   "node",          // ✅ ADD THIS
@@ -281,7 +288,8 @@ app.get("/download-youtube-stream", (req, res) => {
 
   "--js-runtimes",
   "node",          // ✅ ADD THIS
-
+fs.existsSync("./cookies.txt") && "--cookies-from-browser",
+    fs.existsSync("./cookies.txt") && "chrome", // या आपके द्वारा उपयोग किए जा रहे ब्राउज़र का नाम
   "--recode-video",
   "mp4",
   "--ffmpeg-location",
