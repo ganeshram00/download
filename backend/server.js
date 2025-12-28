@@ -21,10 +21,8 @@ app.use(cors());
 app.use(express.json());
 
 /* ---------------- PATH CONFIGURATION ---------------- */
-const yt_dlp_path =
-  "C:/Users/ganes/AppData/Local/Microsoft/WinGet/Packages/yt-dlp.yt-dlp_Microsoft.Winget.Source_8wekyb3d8bbwe/yt-dlp.exe";
-const ffmpeg_path =
-  "C:/Users/ganes/AppData/Local/Microsoft/WinGet/Packages/yt-dlp.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-N-121938-g2456a39581-win64-gpl/bin/ffmpeg.exe";
+const yt_dlp_path = "yt-dlp";
+const ffmpeg_path = "ffmpeg";
 
 /* ---------------- YTDL AGENT (Cookies/Signatures) ---------------- */
 let agent = undefined;
